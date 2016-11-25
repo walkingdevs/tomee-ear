@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/walkingdevs/tomee-ear.svg?branch=master)](https://travis-ci.org/walkingdevs/tomee-ear)
+[![Download](https://api.bintray.com/packages/walkingdevs/mvn/tomee-ear/images/download.svg) ](https://bintray.com/walkingdevs/mvn/tomee-ear/_latestVersion)
+
 ## What is it?
 - Generic JEE 7 template based on TomEE 7
 - Profiles dev|staging|prod
