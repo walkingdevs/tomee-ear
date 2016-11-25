@@ -11,6 +11,6 @@ script:
 
 deploy:
   provider: script
-  script: mvn deploy -s settings.xml -DBintrayKey=$BintrayKey
+  script: mvn deploy -s settings.xml -DskipTests -DBintrayKey=$BintrayKey
   on:
     tags: true
