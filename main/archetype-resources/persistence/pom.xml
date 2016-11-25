@@ -1,0 +1,29 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>${groupId}</groupId>
+        <artifactId>${artifactId}</artifactId>
+        <version>${version}</version>
+    </parent>
+
+    <artifactId>persistence</artifactId>
+    <packaging>ejb</packaging>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/profile/${profile}</directory>
+                <targetPath>META-INF</targetPath>
+            </resource>
+
+            <resource>
+                <directory>${basedir}</directory>
+                <includes>
+                    <include>ejb-jar.xml</include>
+                </includes>
+                <targetPath>META-INF</targetPath>
+            </resource>
+        </resources>
+    </build>
+</project>

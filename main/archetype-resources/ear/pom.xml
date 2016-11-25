@@ -1,0 +1,187 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>${groupId}</groupId>
+        <artifactId>${artifactId}</artifactId>
+        <version>${version}</version>
+    </parent>
+
+    <artifactId>ear</artifactId>
+    <packaging>ear</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>persistence</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>deploy</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>web</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>rs</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>libs</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>profile/resources/${profile}</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <modules>
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>persistence</artifactId>
+                        </ejbModule>
+
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>ejb</artifactId>
+                        </ejbModule>
+
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>deploy</artifactId>
+                        </ejbModule>
+
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>web</artifactId>
+                            <contextRoot>/</contextRoot>
+                        </webModule>
+
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>rs</artifactId>
+                            <contextRoot>rs</contextRoot>
+                        </webModule>
+
+                        <jarModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>libs</artifactId>
+                            <bundleDir>lib</bundleDir>
+                        </jarModule>
+                    </modules>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.tomee.maven</groupId>
+                <artifactId>tomee-maven-plugin</artifactId>
+                <version>${tomee-version}</version>
+                <configuration>
+                    <tomeeClassifier>plus</tomeeClassifier>
+                    <forceJspDevelopment>false</forceJspDevelopment>
+                    <execFile>${project.build.directory}/app.jar</execFile>
+                    <config>profile/tomee/${profile}</config>
+                    <apps>
+                        <app>${project.groupId}:${project.artifactId}:${project.version}:ear</app>
+                    </apps>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>staging</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomee.maven</groupId>
+                        <artifactId>tomee-maven-plugin</artifactId>
+                        <configuration>
+                            <libs>
+                                <lib>org.postgresql:postgresql:${postgres-driver-version}</lib>
+                            </libs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <profile>staging</profile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomee.maven</groupId>
+                        <artifactId>tomee-maven-plugin</artifactId>
+                        <configuration>
+                            <libs>
+                                <lib>org.postgresql:postgresql:${postgres-driver-version}</lib>
+                            </libs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <profile>prod</profile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>rebel</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomee.maven</groupId>
+                        <artifactId>tomee-maven-plugin</artifactId>
+                        <configuration>
+                            <args>
+                                -agentpath:${project.build.directory}/apache-tomee/lib/libjrebel${sun.arch.data.model}.${lib-extension}
+                            </args>
+                            <libs>
+                                <lib>unzip:jrebel:jrebel:${jrebel-version}:zip</lib>
+                            </libs>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.zeroturnaround</groupId>
+                        <artifactId>jrebel-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

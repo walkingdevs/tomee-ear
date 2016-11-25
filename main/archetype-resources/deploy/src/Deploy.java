@@ -1,0 +1,3 @@
+interface Deploy {
+    void run();
+}

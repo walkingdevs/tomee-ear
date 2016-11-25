@@ -1,0 +1,44 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>${groupId}</groupId>
+        <artifactId>${artifactId}</artifactId>
+        <version>${version}</version>
+    </parent>
+
+    <artifactId>deploy</artifactId>
+    <packaging>ejb</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>${jee-api-groupId}</groupId>
+            <artifactId>${jee-api-artifactId}</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ejb</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>${basedir}/profile/${profile}</directory>
+                <targetPath>META-INF</targetPath>
+            </resource>
+
+            <resource>
+                <directory>${basedir}</directory>
+                <includes>
+                    <include>ejb-jar.xml</include>
+                </includes>
+                <targetPath>META-INF</targetPath>
+            </resource>
+        </resources>
+    </build>
+</project>

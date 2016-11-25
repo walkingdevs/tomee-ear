@@ -1,0 +1,66 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>walkingdevs</groupId>
+        <artifactId>parent</artifactId>
+        <version>5</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
+    <version>${version}</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>persistence</module>
+        <module>ejb</module>
+        <module>deploy</module>
+        <module>rs</module>
+        <module>web</module>
+        <module>libs</module>
+        <module>ear</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${jee-api-groupId}</groupId>
+                <artifactId>${jee-api-artifactId}</artifactId>
+                <version>${jee-api-version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${tomee-commons-lang3-version}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>bintray</id>
+            <url>http://dl.bintray.com/walkingdevs/mvn</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <profile>dev</profile>
+
+        <jee-api-groupId>org.apache.tomee</jee-api-groupId>
+        <jee-api-artifactId>javaee-api</jee-api-artifactId>
+        <jee-api-version>7.0-1</jee-api-version>
+
+        <tomee-version>7.0.2</tomee-version>
+        <tomee-plugin-version>${tomee-version}</tomee-plugin-version>
+        <tomee-commons-lang3-version>3.5</tomee-commons-lang3-version>
+
+        <postgres-driver-version>9.4.1212</postgres-driver-version>
+
+        <jrebel-version>6.4.4</jrebel-version>
+    </properties>
+</project>
