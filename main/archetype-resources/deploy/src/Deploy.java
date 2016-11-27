@@ -1,3 +1,3 @@
-interface Deploy {
+public interface Deploy {
     void run();
 }

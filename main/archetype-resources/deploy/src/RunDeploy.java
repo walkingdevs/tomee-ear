@@ -5,7 +5,7 @@ import javax.inject.Inject;
 
 @Singleton
 @Startup
-class RunDeploy {
+public class RunDeploy {
     @Inject
     private Deploy deploy;
 

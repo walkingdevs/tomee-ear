@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import java.net.URL;
 
 @RunWith(Arquillian.class)
-public class PlanetResourceTest extends Assert {
+public class PlanetRsTest extends Assert {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class).addDefaultPackage();
